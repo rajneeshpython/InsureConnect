@@ -1,0 +1,93 @@
+@startuml DatabaseSchema
+
+entity "Users" as users {
+  *id : UUID
+  --
+  name : varchar
+  email : varchar (unique)
+  password : varchar
+  role : enum (customer/agent/admin)
+  phone_number : varchar
+  created_at : timestamp
+}
+
+entity "Insurers" as insurers {
+  *id : UUID
+  --
+  name : varchar
+  api_url : varchar
+  contact_email : varchar
+  created_at : timestamp
+}
+
+entity "InsurancePlans" as plans {
+  *id : UUID
+  --
+  insurer_id : UUID (FK)
+  plan_type : enum (motor/health/life)
+  plan_name : varchar
+  coverage_amount : decimal
+  premium_base : decimal
+  created_at : timestamp
+}
+
+entity "Quotes" as quotes {
+  *id : UUID
+  --
+  user_id : UUID (FK)
+  plan_id : UUID (FK)
+  premium_amount : decimal
+  quote_date : date
+  valid_till : date
+}
+
+entity "Policies" as policies {
+  *id : UUID
+  --
+  user_id : UUID (FK)
+  plan_id : UUID (FK)
+  policy_number : varchar (unique)
+  premium_amount : decimal
+  policy_date : date
+  commencement_date : date
+  expiry_date : date
+  status : enum (active/expired/lapsed)
+  created_at : timestamp
+}
+
+entity "Payments" as payments {
+  *id : UUID
+  --
+  policy_id : UUID (FK)
+  amount : decimal
+  payment_date : date
+  payment_method : enum (card/upi/netbanking)
+  status : enum (success/failed/pending)
+}
+
+entity "Notifications" as notifications {
+  *id : UUID
+  --
+  user_id : UUID (FK)
+  policy_id : UUID (FK, nullable)
+  message : text
+  channel : enum (email/sms)
+  status : enum (sent/pending/failed)
+  sent_at : timestamp
+}
+
+' ========================
+' Relationships
+' ========================
+users ||--o{ quotes
+users ||--o{ policies
+users ||--o{ notifications
+
+insurers ||--o{ plans
+plans ||--o{ quotes
+plans ||--o{ policies
+
+policies ||--o{ payments
+policies ||--o{ notifications
+
+@enduml

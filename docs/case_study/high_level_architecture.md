@@ -80,3 +80,5 @@ Each module handles:
 - **Load Balancer + API Gateway** → horizontal scaling.  
 - **Database** → PostgreSQL (structured), can use read replicas.  
 - **Insurer API Adapters** → fault-tolerant, retries, circuit breaker pattern.  
+
+
