@@ -1,0 +1,36 @@
+@startuml
+actor Customer
+participant CustomerService
+participant DocumentService
+participant QuoteEngine
+participant InsurerAdapter
+participant PaymentService
+participant NotificationService
+participant Insurance
+
+== Registration & Document Upload ==
+Customer -> CustomerService: register(details)
+CustomerService -> DocumentService: requestDocumentUpload(customerId)
+Customer -> DocumentService: uploadDocument(file)
+DocumentService -> DocumentService: validateDocument(file)
+DocumentService --> CustomerService: documentStatus(success/fail)
+
+== Fetch Quotes ==
+Customer -> QuoteEngine: requestQuotes(insuranceType, details)
+QuoteEngine -> InsurerAdapter: fetchQuote(request)
+InsurerAdapter --> QuoteEngine: returnQuote(Quote)
+QuoteEngine --> Customer: showQuotes(list)
+
+== Select Quote & Payment ==
+Customer -> PaymentService: initiatePayment(selectedQuote, method)
+PaymentService -> PaymentService: processPayment()
+PaymentService --> Customer: paymentStatus(success/fail)
+
+== Purchase Policy ==
+Customer -> Insurance: purchasePolicy(selectedQuote)
+Insurance -> InsurerAdapter: purchasePolicyAPI(insurance)
+InsurerAdapter --> Insurance: purchaseResponse
+Insurance -> NotificationService: sendEmail/SMS/PUSH(policyIssued)
+NotificationService --> Customer: notificationSent
+
+@enduml

@@ -1,0 +1,135 @@
+@startuml
+
+' Abstract Insurance class
+abstract class Insurance {
+    - policyId: String
+    - customerId: String
+    - premium: Float
+    - sumInsured: Float
+    - startDate: Date
+    - endDate: Date
+    - insurer: String
+
+    + calculatePremium(): Float
+    + purchasePolicy(): Boolean
+}
+
+' Subclasses
+class MotorInsurance {
+    - vehicleNumber: String
+    - vehicleModel: String
+    - year: Int
+
+    + calculatePremium(): Float
+    + purchasePolicy(): Boolean
+}
+
+class HealthInsurance {
+    - memberDetails: Member[*]
+    - preExistingDiseases: String[*]
+
+    + calculatePremium(): Float
+    + purchasePolicy(): Boolean
+}
+
+class LifeInsurance {
+    - age: Int
+    - tenure: Int
+    - isSmoker: Boolean
+
+    + calculatePremium(): Float
+    + purchasePolicy(): Boolean
+}
+
+' Inheritance
+MotorInsurance --|> Insurance
+HealthInsurance --|> Insurance
+LifeInsurance --|> Insurance
+
+' Supporting Member class
+class Member {
+    - name: String
+    - age: Int
+    - gender: String
+    - relation: String
+    - preExistingDiseases: String[*]
+}
+
+' Associations
+HealthInsurance "1" --> "*" Member
+
+' Customer class
+class Customer {
+    - customerId: String
+    - name: String
+    - email: String
+    - mobile: String
+
+    + register(): Boolean
+    + updateProfile(): Boolean
+}
+
+' Associations
+Customer "1" --> "*" Insurance
+
+' Quote class
+class Quote {
+    - insurer: String
+    - premium: Float
+    - coverageDetails: String
+}
+
+' Adapter interface and concrete implementations
+interface InsurerAdapter {
+    + fetchQuote(request: Object): Quote
+    + purchasePolicy(policy: Insurance): Boolean
+}
+
+class HDFCAdapter
+class ICICIAdapter
+class PNBMetLifeAdapter
+
+InsurerAdapter <|.. HDFCAdapter
+InsurerAdapter <|.. ICICIAdapter
+InsurerAdapter <|.. PNBMetLifeAdapter
+
+' Quote Engine
+class QuoteEngine {
+    - adapters: InsurerAdapter[*]
+    + getQuotes(insurance: Insurance): Quote[*]
+    - prepareRequest(insurance: Insurance): Object
+}
+
+QuoteEngine --> InsurerAdapter
+QuoteEngine --> Quote
+
+' Document Service
+class DocumentService {
+    + uploadDocument(customerId: String, doc: Object): Boolean
+    + validateDocument(doc: Object): Boolean
+}
+
+Customer --> DocumentService
+Insurance --> DocumentService
+
+' Payment Service
+class PaymentService {
+    + initiatePayment(customerId: String, amount: Float, method: String): String
+    + verifyPayment(transactionId: String): Boolean
+}
+
+Customer --> PaymentService
+Insurance --> PaymentService
+
+' Notification Service
+class NotificationService {
+    + sendEmail(to: String, message: String)
+    + sendSMS(to: String, message: String)
+    + sendPush(to: String, message: String)
+}
+
+PaymentService --> NotificationService
+DocumentService --> NotificationService
+Insurance --> NotificationService
+
+@enduml
