@@ -1,12 +1,8 @@
-version: "3.8"
 services:
   db:
     image: postgres:15
+    container_name: insureconnect-db
     env_file: ./backend/.env
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
@@ -14,13 +10,17 @@ services:
 
   redis:
     image: redis:7
+    container_name: insureconnect-redis
     ports:
       - "6379:6379"
 
   web:
     build: ./backend
-    command: bash -c "python manage.py migrate && gunicorn insureconnect.wsgi:application --bind 0.0.0.0:8000"
+    container_name: insureconnect-web
+    command: ["/app/wait_for_db.sh", "web"]
     env_file: ./backend/.env
+    volumes:
+      - ./backend:/app
     ports:
       - "8000:8000"
     depends_on:
@@ -29,7 +29,8 @@ services:
 
   worker:
     build: ./backend
-    command: celery -A insureconnect worker --loglevel=info
+    container_name: insureconnect-worker
+    command: ["/app/wait_for_db.sh", "worker"]
     env_file: ./backend/.env
     depends_on:
       - db
@@ -37,7 +38,8 @@ services:
 
   beat:
     build: ./backend
-    command: celery -A insureconnect beat --loglevel=info
+    container_name: insureconnect-beat
+    command: ["/app/wait_for_db.sh", "beat"]
     env_file: ./backend/.env
     depends_on:
       - db
