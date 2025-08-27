@@ -83,6 +83,6 @@ docker image prune -a -f
 
 # Remove all unused volumes
 docker volume prune -f
- 
 
-
+# fixture data load into DB
+docker-compose exec web python manage.py loaddata apps/insurers/fixtures/mock_data.json

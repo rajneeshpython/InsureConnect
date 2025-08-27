@@ -1,0 +1,173 @@
+[
+  {
+    "model": "insurers.insurer",
+    "pk": 1,
+    "fields": {
+      "name": "HDFC Life",
+      "api_url": "https://api.hdfclife.com",
+      "contact_email": "support@hdfclife.com",
+      "created_at": "2025-08-27T00:00:00Z"
+    }
+  },
+  {
+    "model": "insurers.insurer",
+    "pk": 2,
+    "fields": {
+      "name": "ICICI Lombard",
+      "api_url": "https://api.icicilombard.com",
+      "contact_email": "support@icicilombard.com",
+      "created_at": "2025-08-27T00:00:00Z"
+    }
+  },
+  {
+    "model": "insurers.insurer",
+    "pk": 3,
+    "fields": {
+      "name": "PNB MetLife",
+      "api_url": "https://api.pnbmetlife.com",
+      "contact_email": "support@pnbmetlife.com",
+      "created_at": "2025-08-27T00:00:00Z"
+    }
+  },
+  {
+    "model": "insurers.insurer",
+    "pk": 4,
+    "fields": {
+      "name": "SBI Life",
+      "api_url": "https://api.sbilife.com",
+      "contact_email": "support@sbilife.com",
+      "created_at": "2025-08-27T00:00:00Z"
+    }
+  },
+  {
+    "model": "insurers.insurer",
+    "pk": 5,
+    "fields": {
+      "name": "Max Life",
+      "api_url": "https://api.maxlife.com",
+      "contact_email": "support@maxlife.com",
+      "created_at": "2025-08-27T00:00:00Z"
+    }
+  },
+
+  {
+    "model": "insurers.insuranceplan",
+    "pk": 1,
+    "fields": {
+      "insurer": 1,
+      "plan_type": "life",
+      "plan_name": "HDFC Life Classic",
+      "coverage_amount": 500000,
+      "premium_base": 5000,
+      "created_at": "2025-08-27T00:00:00Z"
+    }
+  },
+  {
+    "model": "insurers.insuranceplan",
+    "pk": 2,
+    "fields": {
+      "insurer": 1,
+      "plan_type": "health",
+      "plan_name": "HDFC Health Protect",
+      "coverage_amount": 200000,
+      "premium_base": 2500,
+      "created_at": "2025-08-27T00:00:00Z"
+    }
+  },
+  {
+    "model": "insurers.insuranceplan",
+    "pk": 3,
+    "fields": {
+      "insurer": 2,
+      "plan_type": "motor",
+      "plan_name": "ICICI Car Secure",
+      "coverage_amount": 300000,
+      "premium_base": 3000,
+      "created_at": "2025-08-27T00:00:00Z"
+    }
+  },
+  {
+    "model": "insurers.insuranceplan",
+    "pk": 4,
+    "fields": {
+      "insurer": 2,
+      "plan_type": "health",
+      "plan_name": "ICICI Health Plus",
+      "coverage_amount": 250000,
+      "premium_base": 2700,
+      "created_at": "2025-08-27T00:00:00Z"
+    }
+  },
+  {
+    "model": "insurers.insuranceplan",
+    "pk": 5,
+    "fields": {
+      "insurer": 3,
+      "plan_type": "life",
+      "plan_name": "PNB Life Term Plan",
+      "coverage_amount": 1000000,
+      "premium_base": 7000,
+      "created_at": "2025-08-27T00:00:00Z"
+    }
+  },
+  {
+    "model": "insurers.insuranceplan",
+    "pk": 6,
+    "fields": {
+      "insurer": 3,
+      "plan_type": "health",
+      "plan_name": "PNB Health Care",
+      "coverage_amount": 300000,
+      "premium_base": 3200,
+      "created_at": "2025-08-27T00:00:00Z"
+    }
+  },
+  {
+    "model": "insurers.insuranceplan",
+    "pk": 7,
+    "fields": {
+      "insurer": 4,
+      "plan_type": "life",
+      "plan_name": "SBI Life Smart",
+      "coverage_amount": 750000,
+      "premium_base": 6000,
+      "created_at": "2025-08-27T00:00:00Z"
+    }
+  },
+  {
+    "model": "insurers.insuranceplan",
+    "pk": 8,
+    "fields": {
+      "insurer": 4,
+      "plan_type": "motor",
+      "plan_name": "SBI Car Protect",
+      "coverage_amount": 350000,
+      "premium_base": 3300,
+      "created_at": "2025-08-27T00:00:00Z"
+    }
+  },
+  {
+    "model": "insurers.insuranceplan",
+    "pk": 9,
+    "fields": {
+      "insurer": 5,
+      "plan_type": "life",
+      "plan_name": "Max Life Secure",
+      "coverage_amount": 500000,
+      "premium_base": 4800,
+      "created_at": "2025-08-27T00:00:00Z"
+    }
+  },
+  {
+    "model": "insurers.insuranceplan",
+    "pk": 10,
+    "fields": {
+      "insurer": 5,
+      "plan_type": "health",
+      "plan_name": "Max Health Care",
+      "coverage_amount": 200000,
+      "premium_base": 2600,
+      "created_at": "2025-08-27T00:00:00Z"
+    }
+  }
+]
